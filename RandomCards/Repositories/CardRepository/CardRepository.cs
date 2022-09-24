@@ -111,7 +111,8 @@ namespace RandomCards.Repositories.CardRepository
         public async Task<List<Hand>> GetHands()
         {
             var hands = await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
-                .OrderBy(x => x.GameId).Take(25)
+                .Include(x => x.Game)
+                .OrderBy(x => x.Game.TimeStamp).Take(25)
                 .ToListAsync();
 
             return hands;

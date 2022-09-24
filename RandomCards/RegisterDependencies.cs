@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using RandomCards.Data;
 using RandomCards.Repositories.CardRepository;
+using RandomCards.Services.CardService;
 
 namespace RandomCards
 {
@@ -23,6 +24,7 @@ namespace RandomCards
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddScoped<ICardRepository, CardRepository>();
+            services.AddScoped<ICardService, CardService>();
         }
     }
 
