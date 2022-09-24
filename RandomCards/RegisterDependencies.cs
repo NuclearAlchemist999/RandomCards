@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using RandomCards.Data;
+using RandomCards.Repositories.CardRepository;
 
 namespace RandomCards
 {
@@ -17,5 +19,12 @@ namespace RandomCards
                 options.UseSqlServer(connectionString);
             });
         }
+
+        public static void ConfigureServices(this IServiceCollection services)
+        {
+            services.AddScoped<ICardRepository, CardRepository>();
+        }
     }
+
+
 }

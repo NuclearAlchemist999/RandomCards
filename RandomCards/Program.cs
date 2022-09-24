@@ -8,6 +8,8 @@ builder.Services.AddControllers();
 
 builder.Services.ConfigureDatabase(builder.Configuration);
 
+builder.Services.ConfigureServices();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
