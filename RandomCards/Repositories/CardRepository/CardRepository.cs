@@ -84,5 +84,37 @@ namespace RandomCards.Repositories.CardRepository
 
             return cards;
         }
+
+        public async Task<CardHand> GetCardInHandByCardIdAndHandId(Guid cardId, Guid handId)
+        {
+            var card = await _cardDbContext.Cards_Hands.FirstOrDefaultAsync(x =>
+                x.CardId == cardId && x.HandId == handId);
+
+            return card;
+        }
+
+        public async Task DeleteCardInHand(CardHand card)
+        {
+            _cardDbContext.Cards_Hands.Remove(card);
+
+            await _cardDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Hand> GetHand(Guid id)
+        {
+            var hand = await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return hand;
+        }
+
+        public async Task<List<Hand>> GetHands()
+        {
+            var hands = await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
+                .OrderBy(x => x.GameId).Take(25)
+                .ToListAsync();
+
+            return hands;
+        }
     }
 }
