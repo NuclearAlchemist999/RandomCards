@@ -72,5 +72,36 @@ namespace RandomCards.Services.CardService
 
             return hands.ToHandInfoDtoList();
         }
+        public async Task<HandInfoDto> InitializeGame()
+        {
+            var cards = await _cardRepo.GetCards();
+
+            if (cards.Count == 0)
+            {
+                throw new Exception();
+            }
+
+            var game = await AddGame();
+
+            foreach (var card in cards)
+            {
+                await AddCardsInGame(card.Id, game.Id);
+            }
+
+            var hand = await AddHand(game.Id);
+
+            for (int i = 0; i < 5; i++)
+            {
+                var randCard = await GetRandomCardInGame(game.Id);
+
+                await AddCardsInHand(randCard.CardId, hand.Id);
+
+                var deleteCard = await _cardRepo.GetCardByGameIdAndCardId(game.Id, randCard.CardId);
+
+                await _cardRepo.DeleteCardInGame(deleteCard);
+            }
+
+            return await GetHand(hand.Id);
+        }
     }
 }
