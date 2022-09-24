@@ -10,5 +10,8 @@ namespace RandomCards.Repositories.CardRepository
         Task<CardGame> GetCardByGameIdAndCardId(Guid gameId, Guid cardId);
         Task DeleteCardInGame(CardGame card);
         Task<Hand> AddHand(Hand hand);
+        Task<CardHand> AddCardToHand(CardHand card);
+        Task<CardGame> AddCardToGame(CardGame card);
+        Task<List<CardHand>> GetCardsInHandByHandId(Guid id);
     }
 }
