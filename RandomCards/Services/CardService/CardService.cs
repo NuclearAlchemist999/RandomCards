@@ -1,4 +1,6 @@
-﻿using RandomCards.Models;
+﻿using RandomCards.Dto.Converters;
+using RandomCards.Dto.DtoModels;
+using RandomCards.Models;
 using RandomCards.Repositories.CardRepository;
 
 namespace RandomCards.Services.CardService
@@ -52,6 +54,23 @@ namespace RandomCards.Services.CardService
             var randCard = cardsInGame[randNumb];
 
             return randCard;
+        }
+        public async Task<HandInfoDto> GetHand(Guid id)
+        {
+            var hand = await _cardRepo.GetHand(id);
+
+            if (hand == null)
+            {
+                throw new Exception();
+            }
+
+            return hand.ToHandInfoDto();
+        }
+        public async Task<List<HandInfoDto>> GetHands()
+        {
+            var hands = await _cardRepo.GetHands();
+
+            return hands.ToHandInfoDtoList();
         }
     }
 }
