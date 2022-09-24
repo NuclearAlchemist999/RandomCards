@@ -35,5 +35,23 @@ namespace RandomCards.Services.CardService
 
             return cardGame;
         }
+        private async Task<CardHand> AddCardsInHand(Guid cardId, Guid handId)
+        {
+            var handCard = new CardHand { Id = Guid.NewGuid(), CardId = cardId, HandId = handId };
+
+            await _cardRepo.AddCardToHand(handCard);
+
+            return handCard;
+        }
+        private async Task<CardGame> GetRandomCardInGame(Guid gameId)
+        {
+            var cardsInGame = await _cardRepo.GetCardsByGameId(gameId);
+
+            var random = new Random();
+            var randNumb = random.Next(cardsInGame.Count());
+            var randCard = cardsInGame[randNumb];
+
+            return randCard;
+        }
     }
 }
