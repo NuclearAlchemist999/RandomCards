@@ -2,6 +2,7 @@
 using RandomCards.Dto.DtoModels;
 using RandomCards.Models;
 using RandomCards.Repositories.CardRepository;
+using RandomCards.Requests;
 
 namespace RandomCards.Services.CardService
 {
@@ -99,6 +100,35 @@ namespace RandomCards.Services.CardService
                 var deleteCard = await _cardRepo.GetCardByGameIdAndCardId(game.Id, randCard.CardId);
 
                 await _cardRepo.DeleteCardInGame(deleteCard);
+            }
+
+            return await GetHand(hand.Id);
+        }
+
+        public async Task<HandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId)
+        {
+            var hand = await AddHand(gameId);
+
+            var previousCards = await _cardRepo.GetCardsInHandByHandId(request.PreviousHandId);
+
+            foreach (var card in previousCards)
+            {
+                await AddCardsInHand(card.CardId, hand.Id);
+            }
+
+            foreach (var cardId in request.CardIds)
+            {
+                var randCard = await GetRandomCardInGame(gameId);
+
+                var deleteCard = await _cardRepo.GetCardInHandByCardIdAndHandId(cardId, hand.Id);
+
+                await _cardRepo.DeleteCardInHand(deleteCard);
+
+                await AddCardsInHand(randCard.CardId, hand.Id);
+
+                var deleteRandomCard = await _cardRepo.GetCardByGameIdAndCardId(gameId, randCard.CardId);
+
+                await _cardRepo.DeleteCardInGame(deleteRandomCard);
             }
 
             return await GetHand(hand.Id);
