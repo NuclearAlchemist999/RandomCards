@@ -35,5 +35,29 @@ namespace RandomCards.Repositories.CardRepository
 
             return cards;
         }
+
+        public async Task<CardGame> GetCardByGameIdAndCardId(Guid gameId, Guid cardId)
+        {
+            var card = await _cardDbContext.Cards_Games.FirstOrDefaultAsync(x => x.GameId == gameId
+            && x.CardId == cardId);
+
+            return card;
+        }
+
+        public async Task DeleteCardInGame(CardGame card)
+        {
+            _cardDbContext.Cards_Games.Remove(card);
+
+            await _cardDbContext.SaveChangesAsync();
+        }
+
+        public async Task<Hand> AddHand(Hand hand)
+        {
+            _cardDbContext.Hands.Add(hand);
+
+            await _cardDbContext.SaveChangesAsync();
+
+            return hand;
+        }
     }
 }
