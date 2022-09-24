@@ -1,8 +1,12 @@
+using RandomCards;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.ConfigureDatabase(builder.Configuration);
 
 var app = builder.Build();
 
