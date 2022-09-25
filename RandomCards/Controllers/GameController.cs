@@ -16,7 +16,7 @@ namespace RandomCards.Controllers
             _cardService = cardService;
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> InitializeGame()
         {
             var hand = await _cardService.InitializeGame();

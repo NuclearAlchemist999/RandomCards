@@ -10,11 +10,15 @@ builder.Services.ConfigureDatabase(builder.Configuration);
 
 builder.Services.ConfigureServices();
 
+builder.Services.ConfigureCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthorization();
 

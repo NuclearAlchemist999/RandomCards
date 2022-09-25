@@ -6,8 +6,7 @@ namespace RandomCards.Services.CardService
     public interface ICardService
     {
         Task<HandInfoDto> InitializeGame();
-        Task<HandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId);
-        Task<HandInfoDto> GetHand(Guid id);
+        Task<ExtendHandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId);
         Task<List<HandInfoDto>> GetHands();
     }
 }

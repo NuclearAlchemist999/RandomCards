@@ -26,7 +26,18 @@ namespace RandomCards
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<ICardService, CardService>();
         }
+
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                {
+                    policy.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .WithOrigins("http://127.0.0.1:5173");
+                });
+            });
+        }
     }
-
-
 }

@@ -14,6 +14,7 @@ namespace RandomCards.Services.CardService
         {
             _cardRepo = cardRepo;
         }
+
         private async Task<Hand> AddHand(Guid gameId)
         {
             var hand = new Hand { Id = Guid.NewGuid(), GameId = gameId };
@@ -22,6 +23,7 @@ namespace RandomCards.Services.CardService
 
             return hand;
         }
+
         private async Task<Game> AddGame()
         {
             var game = new Game { Id = Guid.NewGuid() };
@@ -30,6 +32,7 @@ namespace RandomCards.Services.CardService
 
             return game;
         }
+
         private async Task<CardGame> AddCardsInGame(Guid cardId, Guid gameId)
         {
             var cardGame = new CardGame { Id = Guid.NewGuid(), CardId = cardId, GameId = gameId };
@@ -38,6 +41,7 @@ namespace RandomCards.Services.CardService
 
             return cardGame;
         }
+
         private async Task<CardHand> AddCardsInHand(Guid cardId, Guid handId)
         {
             var handCard = new CardHand { Id = Guid.NewGuid(), CardId = cardId, HandId = handId };
@@ -46,6 +50,7 @@ namespace RandomCards.Services.CardService
 
             return handCard;
         }
+
         private async Task<CardGame> GetRandomCardInGame(Guid gameId)
         {
             var cardsInGame = await _cardRepo.GetCardsByGameId(gameId);
@@ -56,7 +61,8 @@ namespace RandomCards.Services.CardService
 
             return randCard;
         }
-        public async Task<HandInfoDto> GetHand(Guid id)
+
+        public async Task<Hand> GetHand(Guid id)
         {
             var hand = await _cardRepo.GetHand(id);
 
@@ -65,14 +71,23 @@ namespace RandomCards.Services.CardService
                 throw new Exception();
             }
 
-            return hand.ToHandInfoDto();
+            return hand;
         }
+
         public async Task<List<HandInfoDto>> GetHands()
         {
             var hands = await _cardRepo.GetHands();
 
             return hands.ToHandInfoDtoList();
         }
+
+        public async Task<int> GetCardsInGame(Guid id)
+        {
+            var cards = await _cardRepo.GetCardsByGameId(id);
+
+            return cards.Count();
+        }
+
         public async Task<HandInfoDto> InitializeGame()
         {
             var cards = await _cardRepo.GetCards();
@@ -102,10 +117,11 @@ namespace RandomCards.Services.CardService
                 await _cardRepo.DeleteCardInGame(deleteCard);
             }
 
-            return await GetHand(hand.Id);
+            return hand.ToHandInfoDto();
+            
         }
 
-        public async Task<HandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId)
+        public async Task<ExtendHandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId)
         {
             var hand = await AddHand(gameId);
 
@@ -131,7 +147,11 @@ namespace RandomCards.Services.CardService
                 await _cardRepo.DeleteCardInGame(deleteRandomCard);
             }
 
-            return await GetHand(hand.Id);
+            var numberOfCardsInGame = await GetCardsInGame(gameId);
+
+            var newHand = await GetHand(hand.Id);
+
+            return newHand.ToHandInfoDto().ToExtendHandInfoDto(numberOfCardsInGame);
         }
     }
 }

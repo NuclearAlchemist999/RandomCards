@@ -24,5 +24,16 @@ namespace RandomCards.Dto.Converters
         {
             return hands.Select(x => x.ToHandInfoDto()).ToList();
         }
+
+        public static ExtendHandInfoDto ToExtendHandInfoDto(this HandInfoDto dto, int count)
+        {
+            return new ExtendHandInfoDto
+            {
+                GameId = dto.GameId,
+                HandId = dto.HandId,
+                Cards = dto.Cards,
+                GameCardCount = count
+            };
+        }
     }
 }
