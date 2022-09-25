@@ -12,7 +12,7 @@ using RandomCards.Data;
 namespace RandomCards.Migrations
 {
     [DbContext(typeof(CardDbContext))]
-    [Migration("20220924103558_Initial")]
+    [Migration("20220925182255_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,262 +41,262 @@ namespace RandomCards.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ed2d048f-1912-46ba-a57b-e28f3c292fab"),
+                            Id = new Guid("98e7cce4-94b6-4cd0-8df6-41dcb603e307"),
                             Name = "ace spades"
                         },
                         new
                         {
-                            Id = new Guid("786f5c46-767e-4148-ba59-a4d77fff417e"),
+                            Id = new Guid("f5af3e55-f689-475d-bc2b-734cef2b7dbb"),
                             Name = "two spades"
                         },
                         new
                         {
-                            Id = new Guid("b00e992a-07c0-4498-8201-00204554d4e6"),
+                            Id = new Guid("dc4bb902-9a00-443a-8631-11a0d01d5d87"),
                             Name = "three spades"
                         },
                         new
                         {
-                            Id = new Guid("8f07c4c5-08d1-4386-b0d6-13f3a4df3c02"),
+                            Id = new Guid("6e65fb09-8724-4e56-a872-661a67b618ed"),
                             Name = "four spades"
                         },
                         new
                         {
-                            Id = new Guid("bf0ddee0-789d-4a18-89eb-e9716f202fb4"),
+                            Id = new Guid("62c54a96-a720-450c-a2eb-572c02fd3e70"),
                             Name = "five spades"
                         },
                         new
                         {
-                            Id = new Guid("c1ce5893-7fa8-45e9-834b-bea81cd47944"),
+                            Id = new Guid("cf682d09-92bb-4709-9106-0b640595f1a2"),
                             Name = "six spades"
                         },
                         new
                         {
-                            Id = new Guid("8e16adba-7bfd-4698-9025-8f793af3a67a"),
+                            Id = new Guid("983e67da-26a5-414e-8fe2-a421affb711c"),
                             Name = "seven spades"
                         },
                         new
                         {
-                            Id = new Guid("208b7e46-9e24-4595-b8e2-53ff62b83466"),
+                            Id = new Guid("4408917d-a2d1-44e0-b4f6-2a02e0d50f60"),
                             Name = "eight spades"
                         },
                         new
                         {
-                            Id = new Guid("a3f95ac1-d02b-440f-b170-76d2e0b98208"),
+                            Id = new Guid("ad34c0c4-f4a5-42d6-a99e-6cf24702b15a"),
                             Name = "nine spades"
                         },
                         new
                         {
-                            Id = new Guid("007f7c60-4646-4ffc-8683-42c04a554d81"),
+                            Id = new Guid("6b19b8ca-a9df-4922-bc62-45caf8abd751"),
                             Name = "ten spades"
                         },
                         new
                         {
-                            Id = new Guid("a10c43f9-503c-40a0-aa04-e361d25c52bb"),
+                            Id = new Guid("ec2a8f90-6bb1-4400-8b86-f4171eb7a59f"),
                             Name = "jack spades"
                         },
                         new
                         {
-                            Id = new Guid("4fb56ecf-df1e-4cd2-b72c-1e4bf0fdd511"),
+                            Id = new Guid("f920a120-e313-408d-8a29-cc28a8ab33d3"),
                             Name = "queen spades"
                         },
                         new
                         {
-                            Id = new Guid("99c9b894-ba6d-4ee8-bd0c-a527d2f83036"),
+                            Id = new Guid("c9e39fc0-99f0-49d0-ae1d-ade982eb5f01"),
                             Name = "king spades"
                         },
                         new
                         {
-                            Id = new Guid("d958da25-4344-457d-bcc2-916610414ed0"),
+                            Id = new Guid("8bc8ba28-46b6-4be5-b03a-d30bc518e8ab"),
                             Name = "ace diamonds"
                         },
                         new
                         {
-                            Id = new Guid("93b8dc5a-239f-4792-8804-9f6ba304d377"),
+                            Id = new Guid("32e104a6-befc-4432-81a0-70e84ff298f8"),
                             Name = "two diamonds"
                         },
                         new
                         {
-                            Id = new Guid("ad560d04-aef3-4613-9969-9e5c6e4d6759"),
+                            Id = new Guid("73db7e58-d6b5-45a9-bce9-015bcda10c77"),
                             Name = "three diamonds"
                         },
                         new
                         {
-                            Id = new Guid("3d91aa6f-4325-4afc-a99d-38b113e52f2b"),
+                            Id = new Guid("c6824e2e-1e5a-468c-bc36-7f66168d526a"),
                             Name = "four diamonds"
                         },
                         new
                         {
-                            Id = new Guid("3858f116-2552-416a-8263-b0ec6f76859b"),
+                            Id = new Guid("19731224-4d0d-418c-87eb-152815c5ceb7"),
                             Name = "five diamonds"
                         },
                         new
                         {
-                            Id = new Guid("635e48f4-e1fb-4eac-ae2b-c658e813843d"),
+                            Id = new Guid("f736ceaf-9c5f-4bbe-aaa0-cdd57e1af9b9"),
                             Name = "six diamonds"
                         },
                         new
                         {
-                            Id = new Guid("1c0bc9a9-9d51-4d8b-b79b-a898a958663f"),
+                            Id = new Guid("7365766e-9647-46dd-b8c6-da9a035574fa"),
                             Name = "seven diamonds"
                         },
                         new
                         {
-                            Id = new Guid("e9e5bbb7-6a39-4665-9704-e5c3c9f5c7f7"),
+                            Id = new Guid("ee8bf6b8-23cd-44c8-8a6d-b1323e8c249d"),
                             Name = "eight diamonds"
                         },
                         new
                         {
-                            Id = new Guid("f91cbf1d-5011-4ce5-89e2-154f8242f8d1"),
+                            Id = new Guid("a1f34cd1-4886-4bab-a841-2bf0d42eae67"),
                             Name = "nine diamonds"
                         },
                         new
                         {
-                            Id = new Guid("b922714e-1573-49f3-9625-a77325673527"),
+                            Id = new Guid("9d3948e4-7de3-4b9b-a5a9-5430bd6dc380"),
                             Name = "ten diamonds"
                         },
                         new
                         {
-                            Id = new Guid("f36b817b-1d2f-4764-bbd4-5134cb22c058"),
+                            Id = new Guid("71590413-64da-435b-a1c2-5900be671423"),
                             Name = "jack diamonds"
                         },
                         new
                         {
-                            Id = new Guid("f8d855c5-3b35-4d53-8d74-64356fb2f6f3"),
+                            Id = new Guid("f7d937ea-18fa-45bb-a1be-fd41833404d2"),
                             Name = "queen diamonds"
                         },
                         new
                         {
-                            Id = new Guid("b4266bf2-c05b-404b-af6b-0b626ec4d08c"),
+                            Id = new Guid("e5924894-1581-4800-ac0d-76d71019fa64"),
                             Name = "king diamonds"
                         },
                         new
                         {
-                            Id = new Guid("660e2b0d-ff7e-4a61-b357-1f8d63bcda1f"),
+                            Id = new Guid("1e982343-74b0-49c7-a32d-76ca4aa031d6"),
                             Name = "ace clubs"
                         },
                         new
                         {
-                            Id = new Guid("24d276d8-0bed-4231-b075-ff349afff152"),
+                            Id = new Guid("b2826b86-3a89-42db-b4d0-9537df2856af"),
                             Name = "two clubs"
                         },
                         new
                         {
-                            Id = new Guid("720d9b0c-d182-4c4d-aab0-c697f2eccef8"),
+                            Id = new Guid("271d9f70-6cdb-4774-a77a-4d5d23c181af"),
                             Name = "three clubs"
                         },
                         new
                         {
-                            Id = new Guid("0493c1c2-189c-47fd-b597-ae3f4c5af752"),
+                            Id = new Guid("37e117ad-ad6a-4efc-b169-33b4d64a1538"),
                             Name = "four clubs"
                         },
                         new
                         {
-                            Id = new Guid("c7a6c000-a283-43bc-9d44-c276e424900c"),
+                            Id = new Guid("c0e3ccfb-a42f-46c3-af33-2e4ba5a4b75b"),
                             Name = "five clubs"
                         },
                         new
                         {
-                            Id = new Guid("1b97392a-c25b-4ec3-957c-09dad7cac4fd"),
+                            Id = new Guid("4ca2dcb8-26df-44c8-9876-255117009282"),
                             Name = "six clubs"
                         },
                         new
                         {
-                            Id = new Guid("5b0d7fbb-d085-4008-9955-b8e863e2fbdb"),
+                            Id = new Guid("0469eb70-5b2a-4c6b-b32c-56e96b8a29f9"),
                             Name = "seven clubs"
                         },
                         new
                         {
-                            Id = new Guid("d4c97442-f9c4-4971-a57b-718c5fbc602f"),
+                            Id = new Guid("8728bd70-e221-4f07-a4c8-ee0cc27b5db8"),
                             Name = "eight clubs"
                         },
                         new
                         {
-                            Id = new Guid("c6141a7d-0af1-4f37-9b05-3b3f58d6107a"),
+                            Id = new Guid("6be41e35-9e98-4885-9c66-c5bdb7ac4c7c"),
                             Name = "nine clubs"
                         },
                         new
                         {
-                            Id = new Guid("1e8dc7b2-8dc7-41b2-b8a5-eff6a4748adc"),
+                            Id = new Guid("2389b1b1-60e8-4b07-a6f1-f6f2f82adb4f"),
                             Name = "ten clubs"
                         },
                         new
                         {
-                            Id = new Guid("072bf392-cb7e-41e6-8000-1d01780df5c3"),
+                            Id = new Guid("1fbf3919-8759-4f48-9bb0-3d24c2b158e3"),
                             Name = "jack clubs"
                         },
                         new
                         {
-                            Id = new Guid("a51469a6-144c-4e64-a73e-7a5f21eac651"),
+                            Id = new Guid("1edb0043-55d4-4968-84c6-2c33d7cb4460"),
                             Name = "queen clubs"
                         },
                         new
                         {
-                            Id = new Guid("fc47fd32-3396-4873-8aed-f3151d011ef8"),
+                            Id = new Guid("7fe4b0f1-47c6-453e-b505-f8b34eb34e72"),
                             Name = "king clubs"
                         },
                         new
                         {
-                            Id = new Guid("c4549873-0003-4a38-9dbe-a7bc96e04a06"),
+                            Id = new Guid("acaa772f-ce0b-4e87-920c-559658f5f55e"),
                             Name = "ace hearts"
                         },
                         new
                         {
-                            Id = new Guid("9a681dd0-29b9-4ef5-b363-efbcf4e0c56e"),
+                            Id = new Guid("c4463788-e536-4ab3-9f3d-41634794b23a"),
                             Name = "two hearts"
                         },
                         new
                         {
-                            Id = new Guid("606284cd-52af-414f-98d7-364cf6ccc5a3"),
+                            Id = new Guid("89c9e14e-43e0-4370-8ab6-399e3349e54f"),
                             Name = "three hearts"
                         },
                         new
                         {
-                            Id = new Guid("6cfbed3a-ab70-4a4f-94e7-3d12e1089c56"),
+                            Id = new Guid("c5980d42-e872-4c3f-897b-12960e757ee9"),
                             Name = "four hearts"
                         },
                         new
                         {
-                            Id = new Guid("04502fbe-faa0-4b2a-ac51-bf659fc9f208"),
+                            Id = new Guid("1cf39836-be86-45f9-8ee1-8e1d8937cdde"),
                             Name = "five hearts"
                         },
                         new
                         {
-                            Id = new Guid("788b08bc-60a7-4076-8a5b-d2d7d343c0fd"),
+                            Id = new Guid("6f0b28e9-27cb-4429-b163-81ceea403c4b"),
                             Name = "six hearts"
                         },
                         new
                         {
-                            Id = new Guid("66915fbd-892c-4cc5-8f4c-9236c143dd0b"),
+                            Id = new Guid("6f5a54d4-e078-46ed-837b-0f607ad453d9"),
                             Name = "seven hearts"
                         },
                         new
                         {
-                            Id = new Guid("06a61a93-882e-4dd1-92b6-3a034af8b03c"),
+                            Id = new Guid("e8d2839b-cc4d-46ca-8720-211ea4f5d44d"),
                             Name = "eight hearts"
                         },
                         new
                         {
-                            Id = new Guid("8ffd4219-30d5-40e6-b577-d29e43a4085b"),
+                            Id = new Guid("cd68faa7-5051-4383-8826-c32eda7b7e2c"),
                             Name = "nine hearts"
                         },
                         new
                         {
-                            Id = new Guid("fb39002e-8452-40e2-83de-a041cf2e2de0"),
+                            Id = new Guid("995a67f9-cbde-4d58-b3c9-83d6e4f98663"),
                             Name = "ten hearts"
                         },
                         new
                         {
-                            Id = new Guid("5d6cc6de-72c9-45bc-ae26-de2237ca3dac"),
+                            Id = new Guid("19349b74-e865-487c-9c20-a4d7f863626e"),
                             Name = "jack hearts"
                         },
                         new
                         {
-                            Id = new Guid("f1152d96-ed83-4607-ac1e-603c410eb0a3"),
+                            Id = new Guid("8a4e0aca-11a9-47db-b237-e459b727ba9a"),
                             Name = "queen hearts"
                         },
                         new
                         {
-                            Id = new Guid("9a7fa761-9651-4711-a45b-3085d5dfcc54"),
+                            Id = new Guid("9f5eedef-e175-45cb-bf5b-1bb8a381d029"),
                             Name = "king hearts"
                         });
                 });
@@ -366,6 +366,10 @@ namespace RandomCards.Migrations
 
                     b.Property<Guid>("GameId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("TimeStamp")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

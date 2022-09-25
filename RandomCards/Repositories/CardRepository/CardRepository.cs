@@ -113,7 +113,8 @@ namespace RandomCards.Repositories.CardRepository
             var hands = await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
                 .Include(x => x.Game)
                 .OrderByDescending(x => x.Game.TimeStamp)
-                .Take(25)
+                .ThenByDescending(x => x.TimeStamp)
+                .Take(40)
                 .ToListAsync();
 
             return hands;
