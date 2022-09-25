@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RandomCards.Dto.DtoModels;
 using RandomCards.Requests;
 using RandomCards.Services.CardService;
 
@@ -36,7 +37,9 @@ namespace RandomCards.Controllers
         {
             var hands = await _cardService.GetHands();
 
-            return Ok(hands);
+            var response = new HistoryResponseDto { HistoryItems = hands };
+
+            return Ok(response);
         }
     }
 }
