@@ -88,7 +88,7 @@ namespace RandomCards.Services.CardService
             return cards.Count();
         }
 
-        public async Task<HandInfoDto> InitializeGame()
+        public async Task<ExtendHandInfoDto> InitializeGame()
         {
             var cards = await _cardRepo.GetCards();
 
@@ -117,8 +117,9 @@ namespace RandomCards.Services.CardService
                 await _cardRepo.DeleteCardInGame(deleteCard);
             }
 
-            return hand.ToHandInfoDto();
-            
+            var numberOfCardsInGame = await GetCardsInGame(game.Id);
+
+            return hand.ToHandInfoDto().ToExtendHandInfoDto(numberOfCardsInGame);
         }
 
         public async Task<ExtendHandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId)
