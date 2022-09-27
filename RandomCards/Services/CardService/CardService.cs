@@ -127,6 +127,8 @@ namespace RandomCards.Services.CardService
 
         public async Task<ExtendHandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId)
         {
+            await ValidateNewHand(request, gameId);
+
             var hand = await AddHand(gameId);
 
             var previousCards = await _cardRepo.GetCardsInHandByHandId(request.PreviousHandId);
@@ -172,8 +174,20 @@ namespace RandomCards.Services.CardService
                 throw new MoreThrownCardsThanGameCardsLeftBadRequestException();
             }
 
+            if (request.CardIds.Count > 5 || request.CardIds.Count < 1)
+            {
+                throw new NumberOfCardsNotAllowedBadRequestException();
+            }
+
+            var hashset = new HashSet<Guid>();
+
             foreach (var cardId in request.CardIds)
             {
+                if (!hashset.Add(cardId))
+                {
+                    throw new NoDuplicateIdsBadRequestException();
+                }
+
                 var card = await _cardRepo.GetCardInHandByCardIdAndHandId(cardId, request.PreviousHandId);
 
                 if (card == null)

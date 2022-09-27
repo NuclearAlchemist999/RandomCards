@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Cors.Infrastructure;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RandomCards.Data;
 using RandomCards.Repositories.CardRepository;
 using RandomCards.Services.CardService;
