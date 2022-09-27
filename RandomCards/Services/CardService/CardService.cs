@@ -1,5 +1,6 @@
 ﻿using RandomCards.Dto.Converters;
 using RandomCards.Dto.DtoModels;
+using RandomCards.Exceptions;
 using RandomCards.Models;
 using RandomCards.Repositories.CardRepository;
 using RandomCards.Requests;
@@ -68,7 +69,7 @@ namespace RandomCards.Services.CardService
 
             if (hand == null)
             {
-                throw new Exception();
+                throw new HandNotFoundException(id);
             }
 
             return hand;
@@ -155,6 +156,31 @@ namespace RandomCards.Services.CardService
             var newHand = await GetHand(hand.Id);
 
             return newHand.ToHandInfoDto().ToExtendHandInfoDto(numberOfCardsInGame);
+        }
+
+        public async Task ValidateNewHand(ThrowCardsRequest request, Guid gameId)
+        {
+            var cardsInGame = await _cardRepo.GetCardsByGameId(gameId);
+
+            if (cardsInGame.Count == 0)
+            {
+                throw new CardsInGameNotFoundException(gameId);
+            }
+
+            if (cardsInGame.Count < request.CardIds.Count)
+            {
+                throw new MoreThrownCardsThanGameCardsLeftBadRequestException();
+            }
+
+            foreach (var cardId in request.CardIds)
+            {
+                var card = await _cardRepo.GetCardInHandByCardIdAndHandId(cardId, request.PreviousHandId);
+
+                if (card == null)
+                {
+                    throw new CardInHandNotFoundException(cardId, request.PreviousHandId);
+                }
+            }
         }
     }
 }
