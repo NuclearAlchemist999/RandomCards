@@ -1,4 +1,4 @@
-﻿
+﻿using RandomCards.Models;
 
 namespace RandomCards.Tests.Repositories
 {
@@ -50,6 +50,7 @@ namespace RandomCards.Tests.Repositories
             Assert.Equal(newCardGame, card);
             Assert.NotNull(card);
         }
+
         [Fact]
         public void AddToHandAndGetThatHandTest()
         {
@@ -63,6 +64,62 @@ namespace RandomCards.Tests.Repositories
             // Assert
             Assert.Equal(newHand, hand);
             Assert.NotNull(hand);
+        }
+
+        [Fact]
+        public void AddCardToHandAndGetThatCardTest()
+        {
+            // Arrange
+            var newCardHand = mockData.NewCardInHand();
+
+            // Act
+            cardRepo.AddCardToHand(newCardHand);
+            var cardHand = cardRepo.GetCardInHandByCardIdAndHandId(newCardHand.CardId, newCardHand.HandId);
+
+            // Assert
+
+            Assert.Equal(newCardHand.Id, cardHand.Id);
+            Assert.NotNull(cardHand);
+        }
+
+        [Fact]
+        public void GetHandsTest()
+        {
+            // Arrange
+            var newHands = cardRepo.hands;
+
+            // Act
+            for (int i = 0; i < 4; i++)
+            {
+                var newHand = mockData.NewHand();
+                newHands.Add(newHand);
+            }
+
+            var hands = cardRepo.GetHands();
+
+            // Assert
+            Assert.Equal(4, hands.Count());
+
+        }
+
+        [Fact]
+        public void GetCardsByGameIdTest()
+        {
+            // Arrange
+            var cards = cardRepo.AddCards();
+            var newCardGames = cardRepo.cardGames;
+            var newGame = mockData.NewGame();
+
+            // Act
+            foreach (var card in cards)
+            {
+                newCardGames.Add(new CardGame { Id = Guid.NewGuid(), CardId = card.Id, GameId = newGame.Id });
+            }
+
+            var cardGames = cardRepo.GetCardsByGameId(newGame.Id);
+
+            //Assert
+            Assert.Equal(52, cardGames.Count());
         }
     }
 }
