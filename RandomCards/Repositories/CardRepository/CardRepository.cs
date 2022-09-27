@@ -17,7 +17,7 @@ namespace RandomCards.Repositories.CardRepository
         {
             _cardDbContext.Games.Add(game);
 
-            await _cardDbContext.SaveChangesAsync();
+            await SaveChanges();
 
             return game;
         }
@@ -48,14 +48,14 @@ namespace RandomCards.Repositories.CardRepository
         {
             _cardDbContext.Cards_Games.Remove(card);
 
-            await _cardDbContext.SaveChangesAsync();
+            await SaveChanges();
         }
 
         public async Task<Hand> AddHand(Hand hand)
         {
             _cardDbContext.Hands.Add(hand);
 
-            await _cardDbContext.SaveChangesAsync();
+            await SaveChanges();
 
             return hand;
         }
@@ -64,7 +64,7 @@ namespace RandomCards.Repositories.CardRepository
         {
             _cardDbContext.Cards_Hands.Add(card);
 
-            await _cardDbContext.SaveChangesAsync();
+            await SaveChanges();
 
             return card;
         }
@@ -73,7 +73,7 @@ namespace RandomCards.Repositories.CardRepository
         {
             _cardDbContext.Cards_Games.Add(card);
 
-            await _cardDbContext.SaveChangesAsync();
+            await SaveChanges();
 
             return card;
         }
@@ -97,7 +97,7 @@ namespace RandomCards.Repositories.CardRepository
         {
             _cardDbContext.Cards_Hands.Remove(card);
 
-            await _cardDbContext.SaveChangesAsync();
+            await SaveChanges();
         }
 
         public async Task<Hand> GetHand(Guid id)
@@ -118,6 +118,11 @@ namespace RandomCards.Repositories.CardRepository
                 .ToListAsync();
 
             return hands;
+        }
+
+        public async Task SaveChanges()
+        {
+            await _cardDbContext.SaveChangesAsync();
         }
     }
 }

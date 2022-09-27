@@ -74,11 +74,13 @@ namespace RandomCards.Services.CardService
             return hand;
         }
 
-        public async Task<List<HandInfoDto>> GetHands()
+        public async Task<HistoryResponseDto> GetHands()
         {
             var hands = await _cardRepo.GetHands();
 
-            return hands.ToHandInfoDtoList();
+            var handListDto = hands.ToHandInfoDtoList();
+
+            return new HistoryResponseDto { HistoryItems = handListDto };
         }
 
         public async Task<int> GetCardsInGame(Guid id)

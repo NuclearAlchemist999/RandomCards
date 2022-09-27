@@ -7,6 +7,6 @@ namespace RandomCards.Services.CardService
     {
         Task<ExtendHandInfoDto> InitializeGame();
         Task<ExtendHandInfoDto> AddNewCardsInHand(ThrowCardsRequest request, Guid gameId);
-        Task<List<HandInfoDto>> GetHands();
+        Task<HistoryResponseDto> GetHands();
     }
 }
