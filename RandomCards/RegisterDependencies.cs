@@ -28,13 +28,18 @@ namespace RandomCards
 
         public static void ConfigureCors(this IServiceCollection services)
         {
+#if DEBUG
+            var origin = "http://127.0.0.1:5173/";
+#else
+            var origin = "https://randomcardsgame.onrender.com";
+#endif
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
                 {
                     policy.AllowAnyHeader()
                           .AllowAnyMethod()
-                          .WithOrigins("http://127.0.0.1:5173");
+                          .WithOrigins(origin);
                 });
             });
         }
