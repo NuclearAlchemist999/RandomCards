@@ -7,6 +7,9 @@ namespace RandomCards
 {
     public static class RegisterDependencies
     {
+        /// <summary>
+        /// This exists to make the Program cleaner.
+        /// </summary>
         public static void ConfigureDatabase(this IServiceCollection services, IConfiguration configuration)
         {
 #if DEBUG

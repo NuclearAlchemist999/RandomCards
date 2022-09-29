@@ -4,6 +4,9 @@ using RandomCards.Models;
 
 namespace RandomCards.Repositories.CardRepository
 {
+    /// <summary>
+    /// Closest methods to the database. The name of each method speaks for itself.
+    /// </summary>
     public class CardRepository : ICardRepository
     {
         private readonly CardDbContext _cardDbContext;

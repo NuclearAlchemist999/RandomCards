@@ -123,5 +123,14 @@ namespace RandomCards.Tests.Services
             return cardHands.Where(x => x.HandId == id).ToList();
         }
 
+        public List<CardHand> GetHistory()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                cardHands.Add(new CardHand { Id = Guid.NewGuid(), CardId = Guid.NewGuid(), HandId = new Guid("c3e6d755-442d-49ff-8baa-77fb1ea5d329") });
+            }
+
+            return cardHands;
+        }
     }
 }

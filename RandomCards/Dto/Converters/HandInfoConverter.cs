@@ -3,6 +3,9 @@ using RandomCards.Models;
 
 namespace RandomCards.Dto.Converters
 {
+    /// <summary>
+    /// Dto converters related to HandInfoDto
+    /// </summary>
     public static class HandInfoConverter
     {
         public static HandInfoDto ToHandInfoDto(this Hand hand)

@@ -7,6 +7,11 @@ using RandomCards.Requests;
 
 namespace RandomCards.Services.CardService
 {
+    /// <summary>
+    /// Business logic are handled here. The public methods are InitializeGame, AddNewCardsInHand and GetHands.
+    /// InitializeGame will handle the first five cards and the AddNewCardsInHand takes parameters of the incoming card ids
+    /// and will replace the thrown cards with new cards. GetHands will get the history of the card hands and return a dto.
+    /// </summary>
     public class CardService : ICardService
     {
         private readonly ICardRepository _cardRepo;
@@ -63,7 +68,7 @@ namespace RandomCards.Services.CardService
             return randCard;
         }
 
-        public async Task<Hand> GetHand(Guid id)
+        private async Task<Hand> GetHand(Guid id)
         {
             var hand = await _cardRepo.GetHand(id);
 
@@ -74,7 +79,7 @@ namespace RandomCards.Services.CardService
 
             return hand;
         }
-
+        
         public async Task<HistoryResponseDto> GetHands()
         {
             var hands = await _cardRepo.GetHands();
@@ -84,7 +89,7 @@ namespace RandomCards.Services.CardService
             return new HistoryResponseDto { HistoryItems = handListDto };
         }
 
-        public async Task<int> GetCardsInGame(Guid id)
+        private async Task<int> GetCardsInGame(Guid id)
         {
             var cards = await _cardRepo.GetCardsByGameId(id);
 
@@ -160,7 +165,7 @@ namespace RandomCards.Services.CardService
             return newHand.ToHandInfoDto().ToExtendHandInfoDto(numberOfCardsInGame);
         }
 
-        public async Task ValidateNewHand(ThrowCardsRequest request, Guid gameId)
+        private async Task ValidateNewHand(ThrowCardsRequest request, Guid gameId)
         {
             var cardsInGame = await _cardRepo.GetCardsByGameId(gameId);
 

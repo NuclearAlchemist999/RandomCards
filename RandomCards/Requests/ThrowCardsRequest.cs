@@ -2,6 +2,9 @@
 
 namespace RandomCards.Requests
 {
+    /// <summary>
+    /// Required parameters in the AddNewCardsInHand method.
+    /// </summary>
     public class ThrowCardsRequest
     {
         [Required]

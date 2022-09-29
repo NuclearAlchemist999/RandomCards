@@ -2,6 +2,9 @@
 
 namespace RandomCards.Repositories.CardRepository
 {
+    /// <summary>
+    /// Interface for the card repository.
+    /// </summary>
     public interface ICardRepository
     {
         Task<Game> AddGame(Game game);

@@ -4,6 +4,9 @@ using RandomCards.Models;
 
 namespace RandomCards.Data
 {
+    /// <summary>
+    /// The database tables based on the models.
+    /// </summary>
     public class CardDbContext : DbContext
     {
         public CardDbContext(DbContextOptions<CardDbContext> options) : base(options)

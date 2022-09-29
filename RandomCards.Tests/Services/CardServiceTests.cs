@@ -143,5 +143,21 @@ namespace RandomCards.Tests.Services
             Assert.Throws<NoCardsBadRequestException>(() =>
             cardsInHandService.NoCards(cards));
         }
+
+        [Fact]
+        public void GetHistoryTest()
+        {
+            // Arrange and act
+            var cardsInHand = cardService.GetHistory();
+
+            // Assert
+            Assert.NotNull(cardsInHand);
+            Assert.Equal(5, cardsInHand.Count);
+
+            foreach (var card in cardsInHand)
+            {
+                Assert.Equal(new Guid("c3e6d755-442d-49ff-8baa-77fb1ea5d329").ToString(), card.HandId.ToString());
+            }
+        }
     }
 }

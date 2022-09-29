@@ -4,6 +4,9 @@ using RandomCards.Exceptions;
 
 namespace RandomCards.Extensions
 {
+    /// <summary>
+    /// Global error handling.
+    /// </summary>
     public static class ExceptionMiddlewareExtensions
     {
         public static void ConfigureExceptionHandler(this WebApplication app)

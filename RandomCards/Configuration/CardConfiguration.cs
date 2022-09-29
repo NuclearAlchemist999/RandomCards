@@ -4,6 +4,9 @@ using RandomCards.Models;
 
 namespace RandomCards.Configuration
 {
+    /// <summary>
+    /// Will run with migration and create cards in the database.
+    /// </summary>
     public class CardConfiguration : IEntityTypeConfiguration<Card>
     {
         List<string> suits = new List<string> { "spades", "diamonds", "clubs", "hearts" };
