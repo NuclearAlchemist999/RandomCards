@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RandomCards.Data;
 using RandomCards.Models;
+using RandomCards.Services.CardService;
 
 namespace RandomCards.Repositories.CardRepository
 {
@@ -18,114 +19,81 @@ namespace RandomCards.Repositories.CardRepository
 
         public async Task<Game> AddGame(Game game)
         {
-            _cardDbContext.Games.Add(game);
-
-            await SaveChanges();
-
+            await _cardDbContext.Games.AddAsync(game);
             return game;
         }
 
         public async Task<List<Card>> GetCards()
         {
-            var cards = await _cardDbContext.Cards.ToListAsync();
-
-            return cards;
+            return await _cardDbContext.Cards.ToListAsync();
         }
 
         public async Task<List<CardGame>> GetCardsByGameId(Guid id)
         {
-            var cards = await _cardDbContext.Cards_Games.Where(x => x.GameId == id).ToListAsync();
-
-            return cards;
+            return await _cardDbContext.Cards_Games.Where(x => x.GameId == id).ToListAsync();
         }
 
         public async Task<CardGame> GetCardByGameIdAndCardId(Guid gameId, Guid cardId)
         {
-            var card = await _cardDbContext.Cards_Games.FirstOrDefaultAsync(x => x.GameId == gameId
+            return await _cardDbContext.Cards_Games.FirstOrDefaultAsync(x => x.GameId == gameId
             && x.CardId == cardId);
-
-            return card;
-        }
-
-        public async Task DeleteCardInGame(CardGame card)
-        {
-            _cardDbContext.Cards_Games.Remove(card);
-
-            await SaveChanges();
         }
 
         public async Task<Hand> AddHand(Hand hand)
         {
-            _cardDbContext.Hands.Add(hand);
-
-            await SaveChanges();
-
+            await _cardDbContext.Hands.AddAsync(hand);
             return hand;
         }
-
-        public async Task<CardHand> AddCardToHand(CardHand card)
-        {
-            _cardDbContext.Cards_Hands.Add(card);
-
-            await SaveChanges();
-
-            return card;
-        }
-
-        public async Task<CardGame> AddCardToGame(CardGame card)
-        {
-            _cardDbContext.Cards_Games.Add(card);
-
-            await SaveChanges();
-
-            return card;
-        }
-
         public async Task<List<CardHand>> GetCardsInHandByHandId(Guid id)
         {
-            var cards = await _cardDbContext.Cards_Hands.Where(x => x.HandId == id).ToListAsync();
-
-            return cards;
+            return await _cardDbContext.Cards_Hands.Where(x => x.HandId == id).ToListAsync();
         }
 
         public async Task<CardHand> GetCardInHandByCardIdAndHandId(Guid cardId, Guid handId)
         {
-            var card = await _cardDbContext.Cards_Hands.FirstOrDefaultAsync(x =>
+            return await _cardDbContext.Cards_Hands.FirstOrDefaultAsync(x =>
                 x.CardId == cardId && x.HandId == handId);
-
-            return card;
-        }
-
-        public async Task DeleteCardInHand(CardHand card)
-        {
-            _cardDbContext.Cards_Hands.Remove(card);
-
-            await SaveChanges();
         }
 
         public async Task<Hand> GetHand(Guid id)
         {
-            var hand = await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
+            return await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
                 .FirstOrDefaultAsync(x => x.Id == id);
-
-            return hand;
         }
 
         public async Task<List<Hand>> GetHands()
         {
-            var hands = await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
+            return await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
                 .Include(x => x.Game)
                 .OrderByDescending(x => x.Game.TimeStamp)
                 .ThenByDescending(x => x.TimeStamp)
                 .Take(40)
                 .ToListAsync();
-
-            return hands;
         }
 
         public async Task SaveChanges()
         {
             await _cardDbContext.SaveChangesAsync();
+        }
+
+        public async Task AddCardsInGame(List<CardGame> cardGames)
+        {
+            await _cardDbContext.Cards_Games.AddRangeAsync(cardGames);
+        }
+
+        public async Task AddCardsInHand(List<CardHand> cardHands)
+        {
+            await _cardDbContext.Cards_Hands.AddRangeAsync(cardHands);
+        }
+
+        public void DeleteCardInGame(CardGame cardInGame)
+        {
+            _cardDbContext.Cards_Games.Remove(cardInGame);
+        }
+
+        public void DeleteCardsInHand(List<CardHand> cardHands)
+        {
+            _cardDbContext.Cards_Hands.RemoveRange(cardHands);
         }
     }
 }

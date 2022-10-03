@@ -11,14 +11,15 @@ namespace RandomCards.Repositories.CardRepository
         Task<List<Card>> GetCards();
         Task<List<CardGame>> GetCardsByGameId(Guid id);
         Task<CardGame> GetCardByGameIdAndCardId(Guid gameId, Guid cardId);
-        Task DeleteCardInGame(CardGame card);
         Task<Hand> AddHand(Hand hand);
-        Task<CardHand> AddCardToHand(CardHand card);
-        Task<CardGame> AddCardToGame(CardGame card);
         Task<List<CardHand>> GetCardsInHandByHandId(Guid id);
         Task<CardHand> GetCardInHandByCardIdAndHandId(Guid cardId, Guid handId);
-        Task DeleteCardInHand(CardHand card);
         Task<Hand> GetHand(Guid id);
         Task<List<Hand>> GetHands();
+        Task AddCardsInGame(List<CardGame> cardGames);
+        Task AddCardsInHand(List<CardHand> cardHands);
+        void DeleteCardInGame(CardGame cardInGame);
+        void DeleteCardsInHand(List<CardHand> cardHands);
+        Task SaveChanges();
     }
 }

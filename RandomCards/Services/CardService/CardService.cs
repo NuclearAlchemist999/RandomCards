@@ -39,22 +39,14 @@ namespace RandomCards.Services.CardService
             return game;
         }
 
-        private async Task<CardGame> AddCardsInGame(Guid cardId, Guid gameId)
+        private CardGame AddCardInGame(Guid cardId, Guid gameId)
         {
-            var cardGame = new CardGame { Id = Guid.NewGuid(), CardId = cardId, GameId = gameId };
-
-            await _cardRepo.AddCardToGame(cardGame);
-
-            return cardGame;
+            return new CardGame { Id = Guid.NewGuid(), CardId = cardId, GameId = gameId };
         }
 
-        private async Task<CardHand> AddCardsInHand(Guid cardId, Guid handId)
+        private CardHand AddCardInHand(Guid cardId, Guid handId)
         {
-            var handCard = new CardHand { Id = Guid.NewGuid(), CardId = cardId, HandId = handId };
-
-            await _cardRepo.AddCardToHand(handCard);
-
-            return handCard;
+            return new CardHand { Id = Guid.NewGuid(), CardId = cardId, HandId = handId };
         }
 
         private async Task<CardGame> GetRandomCardInGame(Guid gameId)
@@ -102,28 +94,45 @@ namespace RandomCards.Services.CardService
 
             if (cards.Count == 0)
             {
-                throw new Exception();
+                throw new NoCardsBadRequestException();
             }
 
             var game = await AddGame();
+      
+            var cardsInGame = new List<CardGame>();
 
             foreach (var card in cards)
             {
-                await AddCardsInGame(card.Id, game.Id);
+                var cardInGame = AddCardInGame(card.Id, game.Id);
+                cardsInGame.Add(cardInGame);
             }
 
+            await _cardRepo.AddCardsInGame(cardsInGame);
+
             var hand = await AddHand(game.Id);
+
+            await _cardRepo.SaveChanges();
+
+            var addCardsInHand = new List<CardHand>();
 
             for (int i = 0; i < 5; i++)
             {
                 var randCard = await GetRandomCardInGame(game.Id);
 
-                await AddCardsInHand(randCard.CardId, hand.Id);
+                var addCardInHand = AddCardInHand(randCard.CardId, hand.Id);
+
+                addCardsInHand.Add(addCardInHand);
 
                 var deleteCard = await _cardRepo.GetCardByGameIdAndCardId(game.Id, randCard.CardId);
 
-                await _cardRepo.DeleteCardInGame(deleteCard);
+                _cardRepo.DeleteCardInGame(deleteCard);
+
+                await _cardRepo.SaveChanges();
             }
+
+            await _cardRepo.AddCardsInHand(addCardsInHand);    
+
+            await _cardRepo.SaveChanges();
 
             var numberOfCardsInGame = await GetCardsInGame(game.Id);
 
@@ -138,10 +147,19 @@ namespace RandomCards.Services.CardService
 
             var previousCards = await _cardRepo.GetCardsInHandByHandId(request.PreviousHandId);
 
+            var addCardsInHand = new List<CardHand>();
+
             foreach (var card in previousCards)
             {
-                await AddCardsInHand(card.CardId, hand.Id);
+               var addCardInHand = AddCardInHand(card.CardId, hand.Id);
+               addCardsInHand.Add(addCardInHand);
             }
+
+            await _cardRepo.AddCardsInHand(addCardsInHand);
+            await _cardRepo.SaveChanges();
+
+            var deleteCardsInHand = new List<CardHand>();
+            var addNewCardsInHand = new List<CardHand>();
 
             foreach (var cardId in request.CardIds)
             {
@@ -149,14 +167,23 @@ namespace RandomCards.Services.CardService
 
                 var deleteCard = await _cardRepo.GetCardInHandByCardIdAndHandId(cardId, hand.Id);
 
-                await _cardRepo.DeleteCardInHand(deleteCard);
+                deleteCardsInHand.Add(deleteCard);
 
-                await AddCardsInHand(randCard.CardId, hand.Id);
+                var addCardInHand = AddCardInHand(randCard.CardId, hand.Id);
+
+                addNewCardsInHand.Add(addCardInHand);
 
                 var deleteRandomCard = await _cardRepo.GetCardByGameIdAndCardId(gameId, randCard.CardId);
 
-                await _cardRepo.DeleteCardInGame(deleteRandomCard);
+                _cardRepo.DeleteCardInGame(deleteRandomCard);
+
+                await _cardRepo.SaveChanges();
             }
+
+            _cardRepo.DeleteCardsInHand(deleteCardsInHand);
+            await _cardRepo.AddCardsInHand(addNewCardsInHand);
+
+            await _cardRepo.SaveChanges();
 
             var numberOfCardsInGame = await GetCardsInGame(gameId);
 
