@@ -14,6 +14,7 @@ namespace RandomCards.Repositories.CardRepository
         Task<Hand> AddHand(Hand hand);
         Task<List<CardHand>> GetCardsInHandByHandId(Guid id);
         Task<CardHand> GetCardInHandByCardIdAndHandId(Guid cardId, Guid handId);
+        Task<List<CardHand>> GetCardsInHandByCardIdAndHandId(List<CardHand> cardsInHand);
         Task<Hand> GetHand(Guid id);
         Task<List<Hand>> GetHands();
         Task AddCardsInGame(List<CardGame> cardGames);

@@ -165,7 +165,7 @@ namespace RandomCards.Services.CardService
             {
                 var randCard = await GetRandomCardInGame(gameId);
 
-                var deleteCard = await _cardRepo.GetCardInHandByCardIdAndHandId(cardId, hand.Id);
+                var deleteCard = AddCardInHand(cardId, hand.Id);
 
                 deleteCardsInHand.Add(deleteCard);
 
@@ -180,7 +180,8 @@ namespace RandomCards.Services.CardService
                 await _cardRepo.SaveChanges();
             }
 
-            _cardRepo.DeleteCardsInHand(deleteCardsInHand);
+            var deleteCards = await _cardRepo.GetCardsInHandByCardIdAndHandId(deleteCardsInHand);
+            _cardRepo.DeleteCardsInHand(deleteCards);
             await _cardRepo.AddCardsInHand(addNewCardsInHand);
 
             await _cardRepo.SaveChanges();

@@ -55,6 +55,13 @@ namespace RandomCards.Repositories.CardRepository
                 x.CardId == cardId && x.HandId == handId);
         }
 
+        public async Task<List<CardHand>> GetCardsInHandByCardIdAndHandId(List<CardHand> cardsInHand)
+        {
+            var cards = await _cardDbContext.Cards_Hands.ToListAsync();
+
+            return cards.Where(ch => cardsInHand.Any(x => x.CardId == ch.CardId && x.HandId == ch.HandId)).ToList();
+        }
+
         public async Task<Hand> GetHand(Guid id)
         {
             return await _cardDbContext.Hands.Include(x => x.CardHands).ThenInclude(x => x.Card)
@@ -67,7 +74,7 @@ namespace RandomCards.Repositories.CardRepository
                 .Include(x => x.Game)
                 .OrderByDescending(x => x.Game.TimeStamp)
                 .ThenByDescending(x => x.TimeStamp)
-                .Take(40)
+                .Take(120)
                 .ToListAsync();
         }
 
